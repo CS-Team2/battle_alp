@@ -1,12 +1,6 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-/*typedef struct {
-	char name[32];
-	int life, attack, magic;
-}param;*/
-
 struct param
 {
 	char name[8];
@@ -16,21 +10,21 @@ struct param
 void act(struct param* actor, struct param* target, int command1)
 {
 	int point;
-		switch (command1)
-		{
-		case 0:
-			point = actor->attack;
-			target->life -= point;
-			break;
-		case 1:
-			point = rand() % 6 + 1;
-			target->life -= (actor->attack + point);
-			break;
-		case 2:
-			point = 50;
-			actor->life += point;
-			break;
-		}
+	switch (command1)
+	{
+	case 0:
+		point = actor->attack;
+		target->life -= point;
+		break;
+	case 1:
+		point = (actor->attack) + (rand() % 6 + 1);
+		target->life -= point;
+		break;
+	case 2:
+		point = 50;
+		actor->life += point;
+		break;
+	}
 }
 
 
@@ -46,26 +40,29 @@ int main(void)
 	float judge;
 	int command;
 	int command1;
-	printf("(0) CS武器無\n(1) MS武器無\n(2) BS武器無\n(3) CS武器1あり\n(4) MS武器1あり\n(5) BS武器1あり\n(7) CS武器2あり\n(8) MS武器2あり\n(9) BS武器2あり\n(10) CS武器3あり\n(11) MS武器3あり\n(12) BS武器3あり\n");
+	printf("(0) CS武器無\n(1) MS武器無\n(2) BS武器無\n(3) CS武器1あり\n(4) MS武器1あり\n(5) BS武器1あり\n(6) CS武器2あり\n(7) MS武器2あり\n(8) BS武器2あり\n(9) CS武器3あり\n(10) MS武器3あり\n(11) BS武器3あり\n(12) CS武器1ボス\n");
+	printf("(13) MS武器1ボス\n(14) BS武器1ボス\n(15) CS武器2ボス\n(16) MS武器2ボス\n(17) BS武器2ボス\n(18) CS武器3ボス\n(19) MS武器3ボス\n(20) BS武器3ボス\n(99) end\n");
 	printf("Command:");
 	scanf("%d", &command);
 	if (command == 0)
 	{
 		struct param you = { "CS学生", 75,20,10 };
-		struct param enemy = { "教授", 50,5,0 };
+		struct param enemy = { "MOB", 50,5,0 };
 		printf("%s: Life = %d, Attack = %d, magic = %d\n", you.name, you.life, you.attack, you.magic);
 		printf("%s: Life = %d, Attack = %d, magic = %d\n", enemy.name, enemy.life, enemy.attack, enemy.magic);
-		printf("CS武器なしで敵との戦闘\n");
+		printf("CS武器なしで戦うことのできる道中最強の敵との戦闘\n");
 		win = 0;
 		lose = 0;
 		while (battle_loop < 10) {
+			struct param you = { "CS学生", 75,20,10 };
+			struct param enemy = { "MOB", 50,5,0 };
 			for (;;) {
-				if (you.life > 25 || enemy.life <= you.attack)
-				{
-					command1 = 0;
-				}
-				else if (you.life <= 25 && enemy.life > you.attack) {
+				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
+					you.magic -= 3;
+				}
+				else {
+					command1 = 0;
 				}
 				act(&you, &enemy, command1);
 				if (enemy.life <= 0)
@@ -73,6 +70,14 @@ int main(void)
 					battle_loop += 1;
 					win += 1;
 					break;
+				}
+
+				if (enemy.magic >= 2 && rand() % 3 == 0) {
+					command = 1;
+					enemy.magic -= 2;
+				}
+				else{
+					command = 0;
 				}
 				act(&enemy, &you, 0);
 				if (you.life <= 0)
@@ -84,50 +89,18 @@ int main(void)
 			}
 		}
 		judge = (win / (win + lose)) * 100;
-		printf("winning_percentage%.2f%%\n", judge);
+		printf("winning percentage:%.2f%%\n", judge);
+		return main();
+	}
+
+	if (command == 99) {
 		return 0;
 	}
-	/*else if (command == 1)
+	else if (command < 0 || command > 5)
 	{
-		param you = { "MS学生", 125,10,5 };
-		param enemy = { "教授", 50,5,0 };
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", you.name, you.life, you.attack, you.magic);
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", enemy.name, enemy.life, enemy.attack, enemy.magic);
+		printf("0~25のコマンドを入力してください\n");
+		return main();
 	}
-	else if (command == 2)
-	{
-		param you = { "BS学生", 100,5,40 };
-		param enemy = { "教授", 50,5,0 };
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", you.name, you.life, you.attack, you.magic);
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", enemy.name, enemy.life, enemy.attack, enemy.magic);
-	}
-	else if (command == 3)
-	{
-		param you = { "CS学生1", 75,25,15 };
-		param enemy = { "教授", 50,5,0 };
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", you.name, you.life, you.attack, you.magic);
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", enemy.name, enemy.life, enemy.attack, enemy.magic);
-	}
-	else if (command == 4)
-	{
-		param you = { "MS学生1", 125,15,10 };
-		param enemy = { "教授", 50,5,0 };
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", you.name, you.life, you.attack, you.magic);
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", enemy.name, enemy.life, enemy.attack, enemy.magic);
-	}
-	else if (command == 5)
-	{
-		param you = { "BS学生1", 100,10,45 };
-		param enemy = { "教授", 50,5,0 };
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", you.name, you.life, you.attack, you.magic);
-		printf("%s: Life = %d, Attack = %d, magic = %d\n", enemy.name, enemy.life, enemy.attack, enemy.magic);
-	}
-	if (command < 0 || command > 5)
-	{
-		printf("0~25のコマンドを入力\n");
-
-	}*/
-
 }
 
 int GetRandom(int min, int max)
