@@ -643,7 +643,7 @@ int main(void)
 			struct param you = { "CS学生1", 75,25,15 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -651,6 +651,9 @@ int main(void)
 					command1 = 0;
 				}
 				act(&you, &enemy, command1);
+				if (you.life > 75) {
+					you.life = 75;
+				}
 				if (enemy.life <= 0)
 				{
 					loop_count += 1;
@@ -692,7 +695,7 @@ int main(void)
 			struct param you = { "MS学生1", 125,15,10 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -745,7 +748,7 @@ int main(void)
 			struct param you = { "BS学生1", 100,10,45 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -798,7 +801,7 @@ int main(void)
 			struct param you = { "CS学生2", 75,30,20 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -806,6 +809,9 @@ int main(void)
 					command1 = 0;
 				}
 				act(&you, &enemy, command1);
+				if (you.life > 75) {
+					you.life = 75;
+				}
 				if (enemy.life <= 0)
 				{
 					loop_count += 1;
@@ -847,7 +853,7 @@ int main(void)
 			struct param you = { "MS学生2", 125,20,15 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -900,7 +906,7 @@ int main(void)
 			struct param you = { "BS学生2", 100,15,50 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -953,7 +959,7 @@ int main(void)
 			struct param you = { "CS学生3", 75,35,25 };
 			struct param enemy = { "BOSS", 150,15,8 };
 			for (;;) {
-				if ((you.life <= enemy.attack + 6) && (enemy.life > you.attack) && (you.magic >= 3)) {
+				if ((you.life <= enemy.attack + 12) && (enemy.life > you.attack) && (you.magic >= 3)) {
 					command1 = 2;
 					you.magic -= 3;
 				}
@@ -961,6 +967,9 @@ int main(void)
 					command1 = 0;
 				}
 				act(&you, &enemy, command1);
+				if (you.life > 75) {
+					you.life = 75;
+				}
 				if (enemy.life <= 0)
 				{
 					loop_count += 1;
