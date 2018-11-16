@@ -1109,7 +1109,6 @@ int main(void)
 	}
 
 	//勝率を出力
-	printf("win:%.0f\nlose:%.0f", win, lose);
 	judge = (win / (win + lose)) * 100;
 	printf("勝率:%.2f%%\n", judge);
 	return main();
